@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<title>Student Management System</title>
+<style type="text/css">
+    .student-form {
+        margin-bottom: 20px;
+    }
+
+    .input-field {
+        width: 200px;
+        height: 30px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .btn-add,
+    .btn-save,
+    .btn-view,
+    .btn-edit,
+    .btn-delete {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .btn-add:hover,
+    .btn-save:hover,
+    .btn-view:hover,
+    .btn-edit:hover,
+    .btn-delete:hover {
+        background-color: #0056b3;
+    }
+
+    .student-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .student-table th, .student-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .student-table th {
+        background-color: #f2f2f2;
+    }
+
+    .student-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .student-table tr:hover {
+        background-color: #ddd;
+    }
+</style>
+<body>
+
+<h1>Welcome to School Mangament</h1>
+
+
+<h:form styleClass="student-form">
+    <h:panelGrid columns="2" cellpadding="5">
+        <h:outputLabel for="name" value="Name:" />
+        <h:inputText id="name" value="#{homeView.name}" styleClass="input-field" />
+
+        <h:outputLabel for="age" value="Age:" />
+        <h:inputText id="age" value="#{homeView.age}" styleClass="input-field" />
+
+        <h:commandButton value="Add Student" action="#{homeView.addStudent}" styleClass="btn-add" />
+        <h:commandButton value="Save to Text File" action="#{homeView.saveToTextFile}" styleClass="btn-save" />
+        <h:commandButton value="View Text File" action="#{homeView.viewTextFileContent}" styleClass="btn-view" />
+    </h:panelGrid>
+
+    <br/>
+
+    <h:dataTable value="#{homeView.students}" var="student" styleClass="student-table">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{student.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Age</f:facet>
+            #{student.age}
+        </h:column>
+        <h:column>
+            <h:commandButton value="Edit" action="#{homeView.editStudent(student)}" styleClass="btn-edit" />
+            <h:commandButton value="Delete" action="#{homeView.removeStudent(student)}" styleClass="btn-delete" />
+        </h:column>
+    </h:dataTable>
+</h:form>
+
+<h:outputText value="#{homeView.readTextFileContent()}" escape="false"/>
+
+</body>
+</html>
